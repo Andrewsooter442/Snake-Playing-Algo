@@ -51,7 +51,6 @@ class Game:
             )
             if loc not in self.body:
                 self.fruit = loc
-                print(self.fruit)
                 break
 
     def snake_move(self):

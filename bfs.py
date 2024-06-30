@@ -103,7 +103,7 @@ class Bfs(Game):
 
         # If fruit is on a even coloum
 
-        # Wether to cut the board and get the apple
+        # Whether to cut the board and get the apple
         if (
             self.body[0].y == self.grid_len
             and self.fruit.x % 2 == 0
@@ -130,7 +130,7 @@ class Bfs(Game):
             self.snake_move()
             return
 
-        # If fruit spawns on left decide wether to cut the board
+        # If fruit spawns on left decide wethere to cut the board
         if self.fruit.x < self.body[0].x:
             # Turn left of the last row if there is no body
             if (

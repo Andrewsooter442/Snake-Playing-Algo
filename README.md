@@ -25,4 +25,7 @@ python3 main.py
 ```
 
 
+### Game options
+There is no UI, so all the configurations, such as manual play or game speed, are controlled through the main.py script, follow the comments there.
+
 
