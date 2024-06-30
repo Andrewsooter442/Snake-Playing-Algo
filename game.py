@@ -14,7 +14,12 @@ class Game:
         self.cell_size = 25
         self.grid_len = self.resoultion // self.cell_size - 1
         self.playmethod = None
+        self.game_state_paused = False
         # self.game_state = "Playing" # the other one is "GameOver"
+
+        # Algo variable
+        self.snake_objective = []
+        self.fruit_locked = False  # Decides wether to create or complete objectives
 
         # Snake
         self.body = [
@@ -46,6 +51,7 @@ class Game:
             )
             if loc not in self.body:
                 self.fruit = loc
+                print(self.fruit)
                 break
 
     def snake_move(self):
@@ -55,15 +61,36 @@ class Game:
             self.score += 1
             self.fruit_eaten = True
 
+        # check of edgecase collision when the head will collide with tail
+        if (self.body[0] + self.direction) == self.body[len(self.body) - 1]:
+            if self.fruit_eaten:
+                body = [self.body[0] + self.direction]
+                body.extend(self.body)
+                self.body = body
+                self.fruit_spawn()
+            else:
+                body = [self.body[0] + self.direction]
+                body.extend(self.body[:-1])
+                self.body = body
+            return
+
         # check for collision
         if (
             0 > (self.body[0] + self.direction).x
             or (self.body[0] + self.direction).x > self.resoultion // self.cell_size
             or 0 > (self.body[0] + self.direction).y
             or (self.body[0] + self.direction).y > self.resoultion // self.cell_size
-            or (self.body[0] + self.direction) in self.body
         ):
-            pygame.quit()
+            print("Snake collided with wall")
+            print("snake head ", self.body[0])
+            self.game_state_paused = True
+            # pygame.quit()
+
+        if (self.body[0] + self.direction) in self.body:
+            print(self.body[0])
+            print("Snake ate itself")
+            self.game_state_paused = True
+            # pygame.quit()
 
         # Snake movement
         if self.fruit_eaten:
@@ -97,7 +124,7 @@ class Game:
 
         # Render Snake
         padding = 2
-        border_radius = 4
+        border_radius = 14
 
         # Moving Vertically
         # This part starts the FuckUp
