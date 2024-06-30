@@ -27,6 +27,13 @@ class Bfs(Game):
                 in self.body[: len(self.body) - self.grid_len]
             ):
                 return False
+        if self.body[0].y == self.grid_len:
+            for i in range(1, self.grid_len):
+                if (
+                    Vector2(self.body[0].x, self.grid_len - i)
+                    in self.body[: len(self.body) - i - 1]
+                ):
+                    return False
 
         # check if the snake can take a right turn without killing itself
         if (

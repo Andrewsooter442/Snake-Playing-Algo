@@ -43,7 +43,7 @@ class Run(Bfs):
             self.snake_render()
             pygame.display.update()
             # Change the FPS to controle the speed of the game high faster leave it blank for max speed
-            self.clock.tick()
+            self.clock.tick(100)
 
 
 game = Run()
